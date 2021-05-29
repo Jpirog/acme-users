@@ -1,10 +1,8 @@
 console.log("Hello")
-//const faker = require('faker')
-//const users = new Array(50).fill('').map(_ => faker.helpers.userCard())
-const {getUsers} = require('./genusers')
+const { getUsers } = require('./genusers')
+
 const users = getUsers();
-//console.log(users)
-console.log(users[0])
+users.sort((a,b) => a.name < b.name ? -1 : 1);
 
 window.addEventListener('hashchange', () => {
   const id = parseInt(window.location.hash.slice(1));
@@ -12,7 +10,7 @@ window.addEventListener('hashchange', () => {
   userList.innerHTML=users.map((c,idx) => {
     if (idx === id) console.log('equals, id=', idx);
     const html1 = `<li><a href='#${idx}'>${c.name}</a>`
-    const html3 = (idx === id) ? `<br>Email: ${c.email}<br>Phone: ${c.phone}<br>User name: ${c.username}` : "<NOT EQUAL>";
+    const html3 = (idx === id) ? `<br>Email: ${c.email}<br>Phone: ${c.phone}<br>User name: ${c.username}` : '';
     const html2 = '</li>'
     return html1 + html3 + html2;
   } ).join('');
